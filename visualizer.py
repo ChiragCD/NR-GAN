@@ -24,7 +24,7 @@ else:
        device = torch.device('cpu')
 
 
-args_file = open("/Users/navaneeth/NR-GAN/outputs/args.txt", "r")
+args_file = open("outputs/args.txt", "r")
 
 data = args_file.readlines()
 
