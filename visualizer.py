@@ -32,18 +32,27 @@ args_file.close()
 
 args = dict()
 for line in data:
-    # print(line)
     key, val = line.split()[:2]
     args[key] = val.rstrip('\n')
 
-# print(data)
+args['g_latent_dim'] = int(args['g_latent_dim'])
+args['g_image_size'] = int(args['g_image_size'])
+args['g_image_channels'] = int(args['g_image_channels'])
+args['g_channels'] = int(args['g_channels'])
+args['g_residual_factor'] = float(args['g_residual_factor'])
+args['gn_latent_dim'] = int(args['gn_latent_dim'])
+args['num_columns'] = int(args['num_columns'])
+args['implicit'] = bool(args['implicit'])
+args['rotation'] = bool(args['rotation'])
+args['channel_shuffle'] = bool(args['channel_shuffle'])
+args['color_inversion'] = bool(args['color_inversion'])
 
 g_params = {
-        'latent_dim': int(args['g_latent_dim']),
-        'image_size': int(args['g_image_size']),
-        'image_channels': int(args['g_image_channels']),
-        'channels': int(args['g_channels']),
-        'residual_factor': float(args['g_residual_factor'])
+        'latent_dim': args['g_latent_dim'],
+        'image_size': args['g_image_size'],
+        'image_channels': args['g_image_channels'],
+        'channels': args['g_channels'],
+        'residual_factor': args['g_residual_factor']
     }
 
 netG_test = net.Generator(**g_params)
@@ -53,11 +62,11 @@ netG_test.eval()
 
 
 gn_params = {
-        'latent_dim': int(args['gn_latent_dim']),
-        'image_size': int(args['g_image_size']),
-        'image_channels': int(args['g_image_channels']),
-        'channels': int(args['g_channels']),
-        'residual_factor': float(args['g_residual_factor'])
+        'latent_dim': args['gn_latent_dim'],
+        'image_size': args['g_image_size'],
+        'image_channels': args['g_image_channels'],
+        'channels': args['g_channels'],
+        'residual_factor': args['g_residual_factor']
     }
 
 netGn_test = net.Generator(**gn_params)     
@@ -70,12 +79,12 @@ visualizer = Visualizer(netG_test,
                             netGn_test,
                             device,
                             args['out'],
-                            bool(args['implicit']),
+                            args['implicit'],
                             args['prior'],
-                            bool(args['rotation']),
-                            bool(args['channel_shuffle']),
-                            bool(args['color_inversion']),
-                            int(args['num_columns']),
+                            args['rotation'],
+                            args['channel_shuffle'],
+                            args['color_inversion'],
+                            args['num_columns'],
                             image_range= tuple([int(i) for i in args['image_range'].replace(' ', '').strip('()').split(',')]))
 
 
