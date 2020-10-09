@@ -22,10 +22,11 @@ def main():
     parser = argparse.ArgumentParser()
     # GPU option
     parser.add_argument('--gpu_id', type=int, default=0)
-    parser.add_argument('--semi_trained', type=str, default=None)
+    parser.add_argument('--semi_trained', type=bool, default=None)
     parser.add_argument('--semi_trained_iamge_gen', type=str, default=None)
     parser.add_argument('--semi_trained_noise_gen', type=str, default=None)
     parser.add_argument('--semi_trained_discrim', type=str, default=None)
+    parser.add_argument('--semi_trained_current_iters', type=int, default=None)
     # Dataset options
     parser.add_argument('--dataset', type=str, default='CIFAR10AG')
     parser.add_argument('--dataroot', type=str, default='data')
@@ -272,9 +273,9 @@ def main():
             netGn_test = netGn
 
         if(args.semi_trained):
-            netG_test.load_state_dict(torch.load(args.semi_trained_image_gen)
-            netGn_test.load_state_dict(torch.load(args.semi_trained_noise_gen)
-            netD.load_state_dict(torch.load(args.semi_trained_discrim)
+            netG_test.load_state_dict(torch.load(args.semi_trained_image_gen))
+            netGn_test.load_state_dict(torch.load(args.semi_trained_noise_gen))
+            netD.load_state_dict(torch.load(args.semi_trained_discrim))
 
     else:
         netGn, netGn_test = None, None
@@ -430,6 +431,9 @@ def main():
 
     # Print args
     util.print_args(args, os.path.join(args.out, 'args.txt'))
+
+    if(args.semi_trained):
+        trainer.iteration = args.semi_trained_current_iters
 
     # Train
     while trainer.iteration < args.num_iterations:
