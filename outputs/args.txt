@@ -1,0 +1,57 @@
+batch_size 64
+beta1 0.0
+beta2 0.99
+blurvh False
+channel_shuffle False
+clip True
+clip_range (-1, 1)
+color_inversion False
+d_channels 128
+d_image_channels 3
+d_lr 0.0002
+d_pooling mean
+d_residual_factor 0.1
+data_seed 0
+dataroot data
+dataset CIFAR10AG
+deterministic False
+display_interval 100
+g_bs_multiple 2
+g_channels 128
+g_image_channels 3
+g_image_size 32
+g_latent_dim 128
+g_lr 0.0002
+g_model_average True
+g_residual_factor 0.1
+gn_latent_dim 128
+gn_train True
+gpu_id 0
+image_range (-1, 1)
+implicit False
+kernel_size 5
+lambda_ds 0.02
+lambda_r1 10.0
+mixture_rate_list [0.7, 0.2, 0.1]
+model_average_beta 0.999
+model_seed 0
+multi_noise_scale 25.0
+multi_noise_scale_high None
+noise_lam 30.0
+noise_lam_high None
+noise_measure False
+noise_scale 25.0
+noise_scale_high None
+noise_scale_list [15, 25, 50]
+num_columns 10
+num_critic 1
+num_iterations 200000
+num_iterations_decay 0
+num_workers 4
+out outputs/SI-NRGAN1_run2
+patch_max_size None
+patch_size 16
+prior additive_gaussian
+rotation False
+snapshot_interval 5000
+visualize_interval 1000
